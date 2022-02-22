@@ -53,11 +53,9 @@ const HorsesUpdate = (props) => {
     }
 
     const handleChangeInputDescr = (event) => {
-        const r = event.target.validity.valid
-            ? event.target.value
-            : rating
+        const r = event.target.value
 
-        setRating(r);
+        setDescription(r);
     }
 
     const handleUpdateHorse = async () => {
