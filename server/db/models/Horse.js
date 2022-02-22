@@ -3,9 +3,10 @@ const Schema = mongoose.Schema
 
 const Horse = new Schema(
     {
-        name: { type: String, required: true },
-        time: { type: [String], required: true },
-        rating: { type: Number, required: true },
+        horseId : Number,
+        name: String,
+        src: String,
+        description: String,
     },
     { timestamps: true },
 )
