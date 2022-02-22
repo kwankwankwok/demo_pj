@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 import { NavBar } from '../components'
-import { MoviesList, MoviesInsert, MoviesUpdate } from '../pages'
+import { HorsesList, HorsesInsert, HorsesUpdate } from '../pages'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -12,18 +12,18 @@ function App() {
             <NavBar />
             <Routes>
                 <Route 
-                    path="/movies/list"
+                    path="/horses/list"
                     exact
-                    element={<MoviesList/>}
+                    element={<HorsesList/>}
                 />
-                <Route path="/movies/create"
+                <Route path="/horses/create"
                     exact
-                    element={<MoviesInsert/>}
+                    element={<HorsesInsert/>}
                 />
                 <Route
-                    path="/movies/update/:id"
+                    path="/horses/update/:id"
                     exact
-                    element={<MoviesUpdate/>}
+                    element={<HorsesUpdate/>}
                 />
             </Routes>
         </Router>
