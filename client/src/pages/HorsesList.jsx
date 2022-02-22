@@ -43,7 +43,7 @@ const HorsesList = (props) => {
     const columns = [
         {
             Header: 'ID',
-            accessor: '_id',
+            accessor: 'horseId',
             filterable: true,
         },
         {
@@ -52,14 +52,9 @@ const HorsesList = (props) => {
             filterable: true,
         },
         {
-            Header: 'Rating',
-            accessor: 'rating',
+            Header: 'Description',
+            accessor: 'description',
             filterable: true,
-        },
-        {
-            Header: 'Time',
-            accessor: 'time',
-            Cell: props => <span>{props.value.join(' / ')}</span>,
         },
         {
             Header: '',

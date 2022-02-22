@@ -37,16 +37,22 @@ const CancelButton = styled.a.attrs({
 `
 const HorsesUpdate = (props) => {
     let { id } = useParams();
+    let [horseId, setHorseId] = useState(undefined);
     let [name, setName] = useState('');
-    let [rating, setRating] = useState('');
-    let [time, setTime] = useState(''); 
+    let [description, setDescription] = useState('');
 
     const handleChangeInputName = (event) => {
         const n = event.target.value
         setName(n);
     };
 
-    const handleChangeInputRating = (event) => {
+    const handleChangeInputHorseId = (event) => {
+        const r = event.target.value;
+
+        setHorseId(r);
+    }
+
+    const handleChangeInputDescr = (event) => {
         const r = event.target.validity.valid
             ? event.target.value
             : rating
@@ -54,21 +60,13 @@ const HorsesUpdate = (props) => {
         setRating(r);
     }
 
-    const handleChangeInputTime = (event) => {
-        const t = event.target.value
-        setTime(t);
-    }
-
     const handleUpdateHorse = async () => {
-        // const { id, name, rating, time } = this.state
-        const arrayTime = time.split('/')
-        const payload = { name, rating, time: arrayTime }
+        const payload = { name, description }
 
         await api.updateHorseById(id, payload).then(res => {
             window.alert(`Horse updated successfully`)
             setName('');
-            setRating('');
-            setTime('');
+            setDescription('');
         })
     }
 
@@ -77,8 +75,8 @@ const HorsesUpdate = (props) => {
             const horse = await api.getHorseById(id)
 
             setName(horse.data.data.name);
-            setRating(horse.data.data.rating);
-            setTime(horse.data.data.time.join('/'));
+            setHorseId(horse.data.data.horseId);
+            setDescription(horse.data.data.description);
         })();
     },[])
 
@@ -93,23 +91,18 @@ const HorsesUpdate = (props) => {
                 onChange={handleChangeInputName}
             />
 
-            <Label>Rating: </Label>
+            <Label>Horse ID: </Label>
             <InputText
                 type="number"
-                step="0.1"
-                lang="en-US"
-                min="0"
-                max="10"
-                pattern="[0-9]+([,\.][0-9]+)?"
-                value={rating}
-                onChange={handleChangeInputRating}
+                value={horseId}
+                onChange={handleChangeInputHorseId}
             />
 
-            <Label>Time: </Label>
+            <Label>Description: </Label>
             <InputText
                 type="text"
-                value={time}
-                onChange={handleChangeInputTime}
+                value={description}
+                onChange={handleChangeInputDescr}
             />
 
             <Button onClick={handleUpdateHorse}>Update Horse</Button>
@@ -119,99 +112,5 @@ const HorsesUpdate = (props) => {
 
 }
 
-// class HorsesUpdate extends Component {
-//     constructor(props) {
-//         super(props)
-
-//         this.state = {
-//             id: this.props.match.params.id,
-//             name: '',
-//             rating: '',
-//             time: '',
-//         }
-//     }
-
-//     handleChangeInputName = async event => {
-//         const name = event.target.value
-//         this.setState({ name })
-//     }
-
-//     handleChangeInputRating = async event => {
-//         const rating = event.target.validity.valid
-//             ? event.target.value
-//             : this.state.rating
-
-//         this.setState({ rating })
-//     }
-
-//     handleChangeInputTime = async event => {
-//         const time = event.target.value
-//         this.setState({ time })
-//     }
-
-//     handleUpdateHorse = async () => {
-//         const { id, name, rating, time } = this.state
-//         const arrayTime = time.split('/')
-//         const payload = { name, rating, time: arrayTime }
-
-//         await api.updateHorseById(id, payload).then(res => {
-//             window.alert(`Horse updated successfully`)
-//             this.setState({
-//                 name: '',
-//                 rating: '',
-//                 time: '',
-//             })
-//         })
-//     }
-
-//     componentDidMount = async () => {
-//         const { id } = this.state
-//         const horse = await api.getHorseById(id)
-
-//         this.setState({
-//             name: horse.data.data.name,
-//             rating: horse.data.data.rating,
-//             time: horse.data.data.time.join('/'),
-//         })
-//     }
-
-//     render() {
-//         const { name, rating, time } = this.state
-//         return (
-//             <Wrapper>
-//                 <Title>Create Horse</Title>
-
-//                 <Label>Name: </Label>
-//                 <InputText
-//                     type="text"
-//                     value={name}
-//                     onChange={this.handleChangeInputName}
-//                 />
-
-//                 <Label>Rating: </Label>
-//                 <InputText
-//                     type="number"
-//                     step="0.1"
-//                     lang="en-US"
-//                     min="0"
-//                     max="10"
-//                     pattern="[0-9]+([,\.][0-9]+)?"
-//                     value={rating}
-//                     onChange={this.handleChangeInputRating}
-//                 />
-
-//                 <Label>Time: </Label>
-//                 <InputText
-//                     type="text"
-//                     value={time}
-//                     onChange={this.handleChangeInputTime}
-//                 />
-
-//                 <Button onClick={this.handleUpdateHorse}>Update Horse</Button>
-//                 <CancelButton href={'/horses/list'}>Cancel</CancelButton>
-//             </Wrapper>
-//         )
-//     }
-// }
 
 export default HorsesUpdate
