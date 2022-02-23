@@ -3,6 +3,7 @@ import axios from 'axios'
 const api = axios.create({
     baseURL: 'http://ec2-18-166-154-126.ap-east-1.compute.amazonaws.com:3000/api',
 })
+console.log('axios base api', api);
 
 export const insertHorse = payload => api.post(`/horse`, payload)
 export const getAllHorses = () => api.get(`/horses`)
