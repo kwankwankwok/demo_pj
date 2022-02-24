@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL: '/api',
+    baseURL: 'http://ec2-18-166-154-126.ap-east-1.compute.amazonaws.com:3000/api',
 })
 
 export const insertHorse = payload => api.post(`/horse`, payload)
