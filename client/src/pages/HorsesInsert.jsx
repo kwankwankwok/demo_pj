@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import api from '../api'
 
 import styled from 'styled-components'
@@ -35,87 +35,68 @@ const CancelButton = styled.a.attrs({
     margin: 15px 15px 15px 5px;
 `
 
-class HorsesInsert extends Component {
-    constructor(props) {
-        super(props)
+const HorsesInsert = (props) => {
+    let [horseId, setHorseId] = useState(undefined);
+    let [name, setName] = useState('');
+    let [description, setDescription] = useState('');
 
-        this.state = {
-            name: '',
-            rating: '',
-            time: '',
-        }
+    const handleChangeInputName = (event) => {
+        const n = event.target.value
+        setName(n);
+    };
+
+    const handleChangeInputHorseId = (event) => {
+        const r = event.target.value;
+
+        setHorseId(r);
     }
 
-    handleChangeInputName = async event => {
-        const name = event.target.value
-        this.setState({ name })
+    const handleChangeInputDescr = (event) => {
+        const r = event.target.value
+
+        setDescription(r);
     }
 
-    handleChangeInputRating = async event => {
-        const rating = event.target.validity.valid
-            ? event.target.value
-            : this.state.rating
-
-        this.setState({ rating })
-    }
-
-    handleChangeInputTime = async event => {
-        const time = event.target.value
-        this.setState({ time })
-    }
-
-    handleIncludeHorse = async () => {
-        const { name, rating, time } = this.state
-        const arrayTime = time.split('/')
-        const payload = { name, rating, time: arrayTime }
+    const handleInsertHorse = async () => {
+        const payload = { horseId, name, description }
 
         await api.insertHorse(payload).then(res => {
             window.alert(`Horse inserted successfully`)
-            this.setState({
-                name: '',
-                rating: '',
-                time: '',
-            })
+            setHorseId('');
+            setName('');
+            setDescription('');
         })
     }
 
-    render() {
-        const { name, rating, time } = this.state
-        return (
-            <Wrapper>
-                <Title>Create Horse</Title>
+    return (
+        <Wrapper>
+            <Title>Create Horse</Title>
 
-                <Label>Name: </Label>
-                <InputText
-                    type="text"
-                    value={name}
-                    onChange={this.handleChangeInputName}
-                />
+            <Label>Name: </Label>
+            <InputText
+                type="text"
+                value={name}
+                onChange={handleChangeInputName}
+            />
 
-                <Label>Rating: </Label>
-                <InputText
-                    type="number"
-                    step="0.1"
-                    lang="en-US"
-                    min="0"
-                    max="10"
-                    pattern="[0-9]+([,\.][0-9]+)?"
-                    value={rating}
-                    onChange={this.handleChangeInputRating}
-                />
+            <Label>Horse ID: </Label>
+            <InputText
+                type="number"
+                value={horseId}
+                onChange={handleChangeInputHorseId}
+            />
 
-                <Label>Time: </Label>
-                <InputText
-                    type="text"
-                    value={time}
-                    onChange={this.handleChangeInputTime}
-                />
+            <Label>Description: </Label>
+            <InputText
+                type="text"
+                value={description}
+                onChange={handleChangeInputDescr}
+            />
 
-                <Button onClick={this.handleIncludeHorse}>Add Horse</Button>
-                <CancelButton href={'/horses/list'}>Cancel</CancelButton>
-            </Wrapper>
-        )
-    }
+            <Button onClick={handleInsertHorse}>Add Horse</Button>
+            <CancelButton href={'/horses/list'}>Cancel</CancelButton>
+        </Wrapper>
+    )
 }
 
 export default HorsesInsert

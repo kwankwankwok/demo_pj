@@ -37,7 +37,7 @@ const CancelButton = styled.a.attrs({
 `
 const HorsesUpdate = (props) => {
     let { id } = useParams();
-    let [horseId, setHorseId] = useState(undefined);
+    let [horseId, setHorseId] = useState('');
     let [name, setName] = useState('');
     let [description, setDescription] = useState('');
 
@@ -59,10 +59,11 @@ const HorsesUpdate = (props) => {
     }
 
     const handleUpdateHorse = async () => {
-        const payload = { name, description }
+        const payload = { horseId, name, description }
 
         await api.updateHorseById(id, payload).then(res => {
             window.alert(`Horse updated successfully`)
+            setHorseId('');
             setName('');
             setDescription('');
         })
@@ -76,7 +77,7 @@ const HorsesUpdate = (props) => {
             setHorseId(horse.data.data.horseId);
             setDescription(horse.data.data.description);
         })();
-    },[])
+    },[id])
 
     return (
         <Wrapper>
