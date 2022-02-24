@@ -21,7 +21,6 @@ const Delete = styled.div`
 
 const HorsesList = (props) => {
     let [horses, setHorses] = useState([]);
-    // const [columns, setColumns] = useState([]);
     let [isLoading, setIsLoading] = useState(false);
     console.log('props', props);
 

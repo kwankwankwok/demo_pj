@@ -51,8 +51,8 @@ updateHorse = async (req, res) => {
             })
         }
         horse.name = body.name
-        horse.time = body.time
-        horse.rating = body.rating
+        horse.horseId = body.horseId
+        horse.description = body.description
         horse
             .save()
             .then(() => {
