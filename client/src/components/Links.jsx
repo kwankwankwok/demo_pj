@@ -12,7 +12,9 @@ const List = styled.div.attrs({
 
 const Item = styled.div.attrs({
     className: 'collpase navbar-collapse',
-})``
+})`
+    padding-left: 10px;
+`
 
 
 const Links = () => {
