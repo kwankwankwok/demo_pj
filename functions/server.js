@@ -1,11 +1,15 @@
+/*
+copy from server/index.js
+*/
+
 const express = require('express')
 const dotenv = require('dotenv').config()
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const serverless = require('serverless-http');
 
-const db = require('./db')
-const horseRouter = require('./routes/horses')
+const db = require('../server/db')
+const horseRouter = require('../server/routes/horses')
 
 const app = express()
 const apiPort = 3000
@@ -20,7 +24,7 @@ app.get('/', (req, res) => {
     res.send('Hello Woasd!')
 })
 
-app.use('/.netlify/functions', horseRouter)
+app.use('/.netlify/functions/server', horseRouter)
 
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`))
 

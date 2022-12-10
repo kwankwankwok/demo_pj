@@ -4,8 +4,10 @@ const { env } = process;
 
 console.log(env);
 
+const MONGODB_URI = env.MONGODB_URI
+
 mongoose
-    .connect('mongodb://127.0.0.1:27017/cinema', { useNewUrlParser: true })
+    .connect(MONGODB_URI, { useNewUrlParser: true })
     .catch(e => {
         console.error('Connection error', e.message)
     })
