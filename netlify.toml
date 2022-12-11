@@ -1,7 +1,8 @@
 [build]
-	command = "# no build command"
+	command = "CI=false npm install && cd client && npm i && CI= npm run build"
 	functions = "functions"
-	publish = "public"
+	publish = "client/build"
 
 [functions]
         node_bundler = "esbuild"
+		external_node_modules = ["express", "mongodb"]
